@@ -1,0 +1,15 @@
+name: DevApp
+
+services:
+  devapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: devappimage
+    container_name: DevApp
+    volumes:
+      - .:/home
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
