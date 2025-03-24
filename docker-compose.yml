@@ -13,3 +13,26 @@ services:
     tty: true
     ports:
       - "3000:3000"
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: mydatabase
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
