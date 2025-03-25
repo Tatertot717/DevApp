@@ -12,5 +12,4 @@ WORKDIR /home/
 EXPOSE 3000
 
 # Compile & run
-CMD ["bash", "-c", "cd devapp && npm install"]
-CMD ["bash"]
+CMD ["bash", "-c", "cd devapp && npm install && npm run dev"]
