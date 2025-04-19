@@ -19,7 +19,11 @@ services:
       DB_HOST: mariadb
       DB_USER: root
       DB_PASSWORD: rootpassword
-      DB_NAME: mydatabase
+      DB_NAME: checkin
+      WATCHPACK_POLLING: true
+    networks:
+      internal:
+        ipv4_address: 172.20.0.10
 
   mariadb:
     image: mariadb
@@ -27,12 +31,19 @@ services:
     restart: always
     volumes:
       - ./db:/var/lib/mysql
+      - ./init/db:/docker-entrypoint-initdb.d/
+      - ./init/mariadb/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: checkin
     networks:
-      - internal
+      internal:
+        ipv4_address: 172.20.0.11
 
 networks:
   internal:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
