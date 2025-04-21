@@ -26,8 +26,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | QRoll",
-    default: "QRoll",
+    template: "%s | UGA Check-In",
+    default: "UGA Check-In System for Secure Class Room Attendance",
   },
 };
 

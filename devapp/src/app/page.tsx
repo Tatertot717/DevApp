@@ -10,7 +10,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center text-center p-10">
         <AnimatedQRLogo />
         <h2 className="text-5xl font-bold mb-6">
-          Welcome to the UGA Class Check-In System
+          UGA Class Check-In System
         </h2>
         <p className="text-xl max-w-2xl mb-10">
           Check in quickly and securely using dynamic QR codes.
