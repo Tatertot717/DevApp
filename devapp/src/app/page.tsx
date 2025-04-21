@@ -1,0 +1,23 @@
+import Header from "@/src/components/header";
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-red-900">
+      <Header />
+
+      <main className="flex flex-col items-center justify-center text-center p-10">
+        <h2 className="text-5xl font-bold mb-6">Welcome to the UGA Class Check-In System</h2>
+        <p className="text-xl max-w-2xl mb-10">
+          Check in quickly and securely using dynamic QR codes.
+        </p>
+
+        <Link href="/checkin/library">
+          <span className="bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-md text-lg transition">
+            Go to Check-In
+          </span>
+        </Link>
+      </main>
+    </div>
+  );
+}
