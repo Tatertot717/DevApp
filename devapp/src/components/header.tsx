@@ -5,7 +5,9 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header className="bg-red-800 text-white px-6 py-4 shadow-md flex justify-between items-center">
-      <h1 className="text-2xl font-bold">UGA Check-In</h1>
+      <Link href="/">
+        <h1 className="text-2xl font-bold">UGA Check-In</h1>
+      </Link>
       <nav className="space-x-4">
         <Link href="/login">
           <span className="hover:underline cursor-pointer">Log In</span>
