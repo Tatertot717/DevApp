@@ -1,5 +1,6 @@
-import Header from "@/src/components/header";
+import Header from "@/components/header";
 import Link from "next/link";
+import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
 
 export default function Home() {
   return (
@@ -7,7 +8,10 @@ export default function Home() {
       <Header />
 
       <main className="flex flex-col items-center justify-center text-center p-10">
-        <h2 className="text-5xl font-bold mb-6">Welcome to the UGA Class Check-In System</h2>
+        <AnimatedQRLogo />
+        <h2 className="text-5xl font-bold mb-6">
+          Welcome to the UGA Class Check-In System
+        </h2>
         <p className="text-xl max-w-2xl mb-10">
           Check in quickly and securely using dynamic QR codes.
         </p>

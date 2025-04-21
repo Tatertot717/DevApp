@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import Header from "@/src/components/header";
+import Header from "@/components/header";
 
 export default function CheckinForm() {
   const { slug } = useParams();

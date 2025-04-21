@@ -1,6 +1,6 @@
-import { query } from "@/src/util/db";
-import Header from "@/src/components/header";
-import QRCheckinClient from "@/src/components/QRCheckinClient";
+import { query } from "@/util/db";
+import Header from "@/components/header";
+import QRCheckinClient from "@/components/QRCheckinClient";
 
 type Params = Promise<{ slug: string }>;
 
