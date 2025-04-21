@@ -1,38 +1,25 @@
+import { isTokenValid } from "@/lib/token";
 import { query } from "@/lib/db";
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   const { name, slug, token } = await req.json();
 
-  if (!name || !slug || !token) {
-    return Response.json({ message: "Invalid request" }, { status: 400 });
+  if (!isTokenValid(slug, token)) {
+    return Response.json({ message: "Invalid or expired token." }, { status: 400 });
   }
 
-  const loc = await query("SELECT * FROM locations WHERE slug = ?", [slug]);
-  if (!loc || loc.length === 0) {
-    return Response.json({ message: "Location not found" }, { status: 404 });
+  const locationRes = await query("SELECT id FROM locations WHERE slug = ?", [slug]);
+  if (!locationRes || locationRes.length === 0) {
+    return Response.json({ message: "Invalid location." }, { status: 404 });
   }
 
-  const locationId = loc[0].id;
-  const cookieKey = `checkedIn_${slug}`;
-  const cookieStore = await cookies();
-  const prevCheckin = cookieStore.get(cookieKey);
-
-  const now = Date.now();
-
-  if (prevCheckin && now - parseInt(prevCheckin.value) < 3600000) {
-    return Response.json({ message: "You already checked in recently!" }, { status: 403 });
-  }
+  const locationId = locationRes[0].id;
+  const ip = req.headers.get("x-forwarded-for") || req.headers.get("host");
 
   await query(
-    "INSERT INTO check_ins (name, location_id, checkin_time) VALUES (?, ?, NOW())",
-    [name, locationId]
+    "INSERT INTO check_ins (name, location_id, ip_address) VALUES (?, ?, ?)",
+    [name, locationId, ip]
   );
 
-  cookieStore.set(cookieKey, `${now}`, {
-    maxAge: 3600,
-    path: "/",
-  });
-
-  return Response.json({ message: "Checked in successfully!" });
+  return Response.json({ message: "Check-in successful!" });
 }
