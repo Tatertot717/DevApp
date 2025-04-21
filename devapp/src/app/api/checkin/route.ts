@@ -1,4 +1,4 @@
-import { query } from "@/util/db";
+import { query } from "@/lib/db";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {

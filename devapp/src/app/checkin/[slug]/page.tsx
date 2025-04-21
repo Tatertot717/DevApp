@@ -1,4 +1,4 @@
-import { query } from "@/util/db";
+import { query } from "@/lib/db";
 import Header from "@/components/header";
 import QRCheckinClient from "@/components/QRCheckinClient";
 
