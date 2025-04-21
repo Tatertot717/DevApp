@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
   const locationId = loc[0].id;
   const cookieKey = `checkedIn_${slug}`;
-  const cookieStore = await cookies(); // ✅ await here
+  const cookieStore = await cookies();
   const prevCheckin = cookieStore.get(cookieKey);
 
   const now = Date.now();

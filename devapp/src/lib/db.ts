@@ -21,7 +21,7 @@ export async function query(sql: string, values?: any[]) {
   } finally {
     if (conn) {
       try {
-        await conn.end(); // explicitly close the connection
+        await conn.end();
       } catch (closeErr) {
         console.warn("Failed to close DB connection:", closeErr);
       }
