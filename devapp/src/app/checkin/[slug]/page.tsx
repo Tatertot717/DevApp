@@ -22,7 +22,8 @@ export default async function CheckinPage({ params }: { params: Params }) {
     );
   }
 
-  const { name, realtime_auth } = location[0];
+  const { name } = location[0];
+  const realtime_auth = false;
 
   return (
     <>
