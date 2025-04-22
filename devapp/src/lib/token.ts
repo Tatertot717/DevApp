@@ -10,11 +10,16 @@ export function generateToken(slug: string, timestamp: number): string {
   return hash.slice(0, 16);
 }
 
-export function isTokenValid(slug: string, receivedToken: string): boolean {
-  const now = Math.floor(Date.now() / 15000);
+export function isTokenValid(
+  slug: string,
+  receivedToken: string,
+  interval: number
+): boolean {
+  const now = Math.floor(Date.now() / (interval * 1000));
 
-  // Allow token from now, now-1, now-2. 45 seconds of lifetime
-  for (let offset = 0; offset <= 2; offset++) {
+  const maxOffset = interval === 5 ? 0 : 2;
+
+  for (let offset = 0; offset <= maxOffset; offset++) {
     const ts = now - offset;
     const expected = generateToken(slug, ts);
     if (receivedToken === expected) {

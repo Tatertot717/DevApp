@@ -28,8 +28,10 @@ export default function SecureScannerPage() {
     if (now - lastScannedTimeRef.current < cooldownMs) return;
     lastScannedTimeRef.current = now;
 
+
     try {
       const parsed = new URL(scanned);
+      const pathname = parsed.pathname;
       const slug = parsed.searchParams.get("slug");
       const token = parsed.searchParams.get("token");
 
@@ -38,23 +40,23 @@ export default function SecureScannerPage() {
         return;
       }
 
-      const res = await fetch("/api/checkin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, token }),
-      });
+      if (pathname === "/scanner") {
+        // Realtime check-in
+        const res = await fetch("/api/checkin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug, token }),
+        });
 
-      const data = await res.json();
-      setMessage(data.message || "Check-in successful!");
+        const data = await res.json();
+        setMessage(data.message || "Check-in successful!");
+      } else {
+        window.location.href = scanned;
+      }
     } catch (err) {
       setMessage("Could not process QR code.");
     }
   };
-
-  // While loading auth status
-  if (isLoading || (!user && typeof window !== "undefined")) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-white text-red-900">
