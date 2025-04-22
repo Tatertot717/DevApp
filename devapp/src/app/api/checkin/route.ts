@@ -1,8 +1,16 @@
 import { isTokenValid } from "@/lib/token";
 import { query } from "@/lib/db";
+import { getAuthUser } from "";
 
 export async function POST(req: Request) {
-  const { name, slug, token } = await req.json();
+  const { slug, token } = await req.json();
+  const user = await getAuthUser(req);
+
+  if (!user) {
+    return Response.json({ message: "Unauthorized." }, { status: 401 });
+  }
+
+  const name = user.name;
 
   if (!isTokenValid(slug, token)) {
     return Response.json({ message: "Invalid or expired token." }, { status: 400 });

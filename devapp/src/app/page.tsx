@@ -20,7 +20,7 @@ export default function Home() {
           asChild
           size="lg"
         >
-          <Link href="/checkin/library">Go to Check-In</Link>
+          <Link href="/scanner">Go to Check-In</Link>
         </Button>
       </main>
     </div>

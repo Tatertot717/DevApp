@@ -18,11 +18,12 @@ export default function QRCheckinClient({ slug }: { slug: string }) {
     return () => clearInterval(interval);
   }, [slug]);
 
-  const url = `/checkin/${slug}/form?token=${token}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
+  const scannerUrl = `${baseUrl}/scanner?slug=${slug}&token=${token}`;
 
   return (
     <div className="bg-white p-4 rounded-2xl shadow-lg">
-      <QRCode value={url} size={256} fgColor="#000000" bgColor="#ffffff" />
+      <QRCode value={scannerUrl} size={256} fgColor="#000000" bgColor="#ffffff" />
       <p className="mt-6 text-sm text-center text-black">
         Current Token:{" "}
         <code className="bg-black text-white px-2 py-1 rounded">{token}</code>
