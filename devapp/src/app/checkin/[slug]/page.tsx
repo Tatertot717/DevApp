@@ -22,18 +22,20 @@ export default async function CheckinPage({ params }: { params: Params }) {
     );
   }
 
+  const { name, realtime_auth } = location[0];
+
   return (
     <>
       <Header />
       <div className="min-h-screen bg-red-700 text-white flex flex-col items-center justify-center p-6">
         <h1 className="text-4xl font-bold mb-4 text-center">
-          UGA Check-In: {location[0].name}
+          UGA Check-In: {name}
         </h1>
         <p className="mb-8 text-lg text-center max-w-xl">
           Scan to check in!
         </p>
-        <QRCheckinClient slug={slug} />
-      </div>
+        <QRCheckinClient slug={slug} realtimeAuth={!!realtime_auth} />
+        </div>
     </>
   );
 }

@@ -15,31 +15,35 @@ export default function SecureScannerPage() {
     const now = Date.now();
     if (now - lastScannedTimeRef.current < cooldownMs) return;
     lastScannedTimeRef.current = now;
-  
+
     try {
       const parsed = new URL(scanned);
+      const pathname = parsed.pathname;
       const slug = parsed.searchParams.get("slug");
       const token = parsed.searchParams.get("token");
-  
+
       if (!slug || !token) {
         setMessage("Scanned QR is missing required data.");
         return;
       }
-  
-      // Directly send the check-in request
-      const res = await fetch("/api/check-in", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, token }),
-      });
-  
-      const data = await res.json();
-      setMessage(data.message || "Check-in successful!");
+
+      if (pathname === "/scanner") {
+        // Realtime check-in
+        const res = await fetch("/api/checkin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug, token }),
+        });
+
+        const data = await res.json();
+        setMessage(data.message || "Check-in successful!");
+      } else {
+        window.location.href = scanned;
+      }
     } catch (err) {
       setMessage("Could not process QR code.");
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-white text-red-900">

@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS locations (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   slug VARCHAR(255) UNIQUE NOT NULL,
+  realtime_auth BOOLEAN NOT NULL DEFAULT FALSE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -21,8 +22,8 @@ CREATE TABLE IF NOT EXISTS check_ins (
 );
 
 -- init
-INSERT IGNORE INTO locations (name, slug)
+INSERT IGNORE INTO locations (name, slug, realtime_auth)
 VALUES 
-  ('Main Library', 'library'),
-  ('Tate Center', 'tate'),
-  ('Software Engineering', 'se-2025');
+  ('Main Library', 'library', false),
+  ('Tate Center', 'tate', false),
+  ('Software Engineering', 'se-2025', true);
