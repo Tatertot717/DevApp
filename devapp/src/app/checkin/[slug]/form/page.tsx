@@ -44,36 +44,54 @@
 //   );
 // }
 
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 
-export default function AutoCheckin({ slug, token }: { slug: string; token?: string }) {
+export default function AutoCheckinPage({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { token?: string };
+}) {
   const { user, isLoading } = useUser();
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!isLoading && user?.name) {
       const submitCheckin = async () => {
-        const res = await fetch("/api/checkin", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: user.name, slug, token }),
-        });
+        try {
+          const res = await fetch("/api/checkin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: user.name,
+              slug: params.slug,
+              token: searchParams.token ?? undefined,
+            }),
+          });
 
-        const data = await res.json();
-        setMessage(data.message);
+          const data = await res.json();
+          setMessage(data.message || "Check-in complete.");
+        } catch (error) {
+          setMessage("Failed to check in. Please try again.");
+        }
       };
 
       submitCheckin();
     }
-  }, [isLoading, user, slug, token]);
+  }, [isLoading, user, params.slug, searchParams.token]);
 
   return (
-    <div className="mt-4 text-lg">
-      {isLoading ? "Checking you in..." : message || "Processing..."}
-    </div>
+    <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold mb-6">Check-In</h1>
+      <p className="text-lg">
+        {isLoading
+          ? "Verifying user and checking you in..."
+          : message || "Processing..."}
+      </p>
+    </main>
   );
 }
