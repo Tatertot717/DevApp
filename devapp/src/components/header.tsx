@@ -9,7 +9,7 @@ export default function Header() {
         <h1 className="text-2xl font-bold">UGA Check-In</h1>
       </Link>
       <nav className="space-x-4">
-        <Link href="/login">
+        <Link href="/auth/login">
           <span className="hover:underline cursor-pointer">Log In</span>
         </Link>
         <Link href="/signup">
