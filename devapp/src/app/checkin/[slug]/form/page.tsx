@@ -48,19 +48,20 @@
 
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useParams, useSearchParams } from "next/navigation";
 
-export default function AutoCheckinPage({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { token?: string };
-}) {
+export default function AutoCheckinPage() {
   const { user, isLoading } = useUser();
   const [message, setMessage] = useState("");
 
+  const params = useParams(); // gives slug from /checkin/[slug]
+  const searchParams = useSearchParams(); // for ?token=xyz
+
+  const slug = params?.slug as string;
+  const token = searchParams?.get("token") ?? undefined;
+
   useEffect(() => {
-    if (!isLoading && user?.name) {
+    if (!isLoading && user?.name && slug) {
       const submitCheckin = async () => {
         try {
           const res = await fetch("/api/checkin", {
@@ -68,8 +69,8 @@ export default function AutoCheckinPage({
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               name: user.name,
-              slug: params.slug,
-              token: searchParams.token ?? undefined,
+              slug,
+              token,
             }),
           });
 
@@ -82,7 +83,7 @@ export default function AutoCheckinPage({
 
       submitCheckin();
     }
-  }, [isLoading, user, params.slug, searchParams.token]);
+  }, [isLoading, user, slug, token]);
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-8">
