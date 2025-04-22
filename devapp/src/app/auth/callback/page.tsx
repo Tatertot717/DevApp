@@ -16,5 +16,5 @@ export default async function DashboardPage() {
 
   await query(`INSERT IGNORE INTO users (auth0_sub) VALUES (?)`, [session.user.sub]);
 
-  redirect("/dashboard"); // Logged in → redirect to callback
+  redirect("/scanner"); // Logged in → redirect to callback
 }

@@ -14,12 +14,14 @@ CREATE TABLE IF NOT EXISTS locations (
 -- check_ins
 CREATE TABLE IF NOT EXISTS check_ins (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
+  auth0_sub VARCHAR(255) NOT NULL, -- NULL for low-auth users
+  name VARCHAR(255) NOT NULL, -- Display name (auth or form input)
   location_id INT NOT NULL,
   checkin_time DATETIME DEFAULT CURRENT_TIMESTAMP,
   ip_address VARCHAR(255),
   FOREIGN KEY (location_id) REFERENCES locations(id)
 );
+
 
 -- users
 CREATE TABLE IF NOT EXISTS users (

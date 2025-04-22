@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@auth0/nextjs-auth0";
 import LandingHeader from "@/components/header";
 import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
 import QRScanner from "@/components/QRScanner";
@@ -11,36 +13,48 @@ export default function SecureScannerPage() {
   const lastScannedTimeRef = useRef<number>(0);
   const cooldownMs = 3000;
 
+  const { user, isLoading } = useUser();
+  const router = useRouter();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push("/auth/login");
+    }
+  }, [user, isLoading, router]);
+
   const handleScan = async (scanned: string) => {
     const now = Date.now();
     if (now - lastScannedTimeRef.current < cooldownMs) return;
     lastScannedTimeRef.current = now;
-  
+
     try {
       const parsed = new URL(scanned);
       const slug = parsed.searchParams.get("slug");
       const token = parsed.searchParams.get("token");
-  
+
       if (!slug || !token) {
         setMessage("Scanned QR is missing required data.");
         return;
       }
-  
-      // Directly send the check-in request
+
       const res = await fetch("/api/checkin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug, token }),
       });
-  
+
       const data = await res.json();
       setMessage(data.message || "Check-in successful!");
     } catch (err) {
-      // TODO: handle not logged in?
       setMessage("Could not process QR code.");
     }
   };
-  
+
+  // While loading auth status
+  if (isLoading || (!user && typeof window !== "undefined")) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-white text-red-900">
@@ -67,5 +81,6 @@ export default function SecureScannerPage() {
         </Button>
       </main>
     </div>
-  );
-}
+  )
+
+        }
