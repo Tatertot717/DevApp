@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import Header from "@/components/header";
+import LandingHeader from "@/components/header";
 
 export default function CheckinForm() {
   const { slug } = useParams();
@@ -27,7 +27,7 @@ export default function CheckinForm() {
 
   return (
     <div className="min-h-screen bg-white text-red-900 p-6">
-      <Header />
+      <LandingHeader />
       <div className="max-w-xl mx-auto text-center mt-10">
         <h1 className="text-3xl font-bold mb-4">Check-In: {slug}</h1>
         <form onSubmit={handleSubmit} className="space-y-4">

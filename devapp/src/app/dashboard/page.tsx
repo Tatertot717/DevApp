@@ -1,5 +1,5 @@
 import { query } from "@/lib/db";
-import Header from "@/components/header";
+import LandingHeader from "@/components/header";
 import AutoRefresh from "@/components/AutoRefresh";
 
 export default async function CheckinsListPage() {
@@ -26,7 +26,7 @@ export default async function CheckinsListPage() {
 
   return (
     <>
-      <Header />
+      <LandingHeader />
       <div className="min-h-screen bg-white text-gray-900 p-10">
         <h1 className="text-4xl font-bold mb-8">Check-In Records</h1>
         <AutoRefresh interval={30} />

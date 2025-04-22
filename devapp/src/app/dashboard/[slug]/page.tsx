@@ -1,5 +1,5 @@
 import { query } from "@/lib/db";
-import Header from "@/components/header";
+import LandingHeader from "@/components/header";
 import AutoRefresh from "@/components/AutoRefresh";
 
 type Params = Promise<{ slug: string }>;
@@ -12,7 +12,7 @@ export default async function LocationCheckinsPage({ params }: { params: Params 
   if (!locationResult || locationResult.length === 0) {
     return (
       <>
-        <Header />
+        <LandingHeader />
         <div className="min-h-screen bg-white text-red-900">
           <main className="p-10 text-center">
             <h2 className="text-3xl font-bold">Location Not Found</h2>
@@ -36,7 +36,7 @@ export default async function LocationCheckinsPage({ params }: { params: Params 
 
   return (
     <>
-      <Header />
+      <LandingHeader />
       <div className="min-h-screen bg-white text-gray-900 p-10">
         <h1 className="text-4xl font-bold mb-8">
           Check-Ins at {location.name}

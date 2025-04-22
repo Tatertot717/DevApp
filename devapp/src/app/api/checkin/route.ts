@@ -1,10 +1,10 @@
 import { isTokenValid } from "@/lib/token";
 import { query } from "@/lib/db";
-import { getAuthUser } from "";
+import { auth0 } from '@/lib/auth0';
 
 export async function POST(req: Request) {
   const { slug, token } = await req.json();
-  const user = await getAuthUser(req);
+  const user = await auth0.getSession();
 
   if (!user) {
     return Response.json({ message: "Unauthorized." }, { status: 401 });

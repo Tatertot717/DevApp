@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Header from "@/components/header";
+import LandingHeader from "@/components/header";
 import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
 import QRScanner from "@/components/QRScanner";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ export default function SecureScannerPage() {
       }
   
       // Directly send the check-in request
-      const res = await fetch("/api/check-in", {
+      const res = await fetch("/api/checkin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug, token }),
@@ -36,6 +36,7 @@ export default function SecureScannerPage() {
       const data = await res.json();
       setMessage(data.message || "Check-in successful!");
     } catch (err) {
+      // TODO: handle not logged in?
       setMessage("Could not process QR code.");
     }
   };
@@ -43,7 +44,7 @@ export default function SecureScannerPage() {
 
   return (
     <div className="min-h-screen bg-white text-red-900">
-      <Header />
+      <LandingHeader />
       <main className="flex flex-col items-center justify-center p-10 text-center gap-8">
         <AnimatedQRLogo />
         <h2 className="text-4xl font-bold">Secure QR Code Scanner</h2>
