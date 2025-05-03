@@ -1,7 +1,10 @@
+'use client'
+
 import { query } from "@/lib/db";
 import Header from "@/components/header";
 import { redirect } from "next/navigation";
 import CheckinForm from "@/components/ui/checkinform";
+import LandingHeader from "@/components/header";
 
 export default async function CheckinFormPage({
   params,
@@ -35,7 +38,7 @@ export default async function CheckinFormPage({
 
   return (
     <div className="min-h-screen bg-white text-red-900 p-6">
-      <Header />
+      <LandingHeader />
       <div className="max-w-xl mx-auto text-center mt-10">
         <h1 className="text-3xl font-bold mb-4">Check-In: {slug}</h1>
         <CheckinForm slug={slug} token={token} />

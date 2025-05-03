@@ -1,12 +1,14 @@
-import Header from "@/components/header";
+import LandingHeader from "@/components/header";
 import Link from "next/link";
 import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
 import { Button } from "@/components/ui/button";
 
+
 export default function Home() {
+
   return (
     <div className="min-h-screen bg-white text-red-900">
-      <Header />
+      <LandingHeader />
 
       <main className="flex flex-col gap-8 items-center justify-center text-center p-10">
         <AnimatedQRLogo />
