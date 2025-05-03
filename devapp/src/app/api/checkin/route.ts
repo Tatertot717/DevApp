@@ -4,13 +4,13 @@ import { auth0 } from '@/lib/auth0';
 
 export async function POST(req: Request) {
   const { slug, token } = await req.json();
-  const user = await auth0.getSession();
+  const session = await auth0.getSession();
 
-  if (!user) {
+  if (!session || !session.user) {
     return Response.json({ message: "Unauthorized." }, { status: 401 });
   }
 
-  const name = user.name;
+  const { name, sub } = session.user;
 
   const locationRes = await query(
     "SELECT id, realtime_auth FROM locations WHERE slug = ?",
@@ -31,8 +31,9 @@ export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for") || req.headers.get("host");
 
   await query(
-    "INSERT INTO check_ins (name, location_id, ip_address) VALUES (?, ?, ?)",
-    [name, locationId, ip]
+    `INSERT INTO check_ins (auth0_sub, name, location_id, ip_address)
+     VALUES (?, ?, ?, ?)`,
+    [sub, name, locationId, ip]
   );
 
   return Response.json({ message: "Check-in successful!" });
