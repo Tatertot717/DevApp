@@ -1,10 +1,13 @@
 import { query } from "@/lib/db";
 import LandingHeader from "@/components/header";
 import QRCheckinClient from "@/components/QRCheckinClient";
+import { requireAdmin } from "@/lib/checkAdmin";
 
 type Params = Promise<{ slug: string }>;
 
 export default async function CheckinPage({ params }: { params: Params }) {
+  await requireAdmin();
+
   const { slug } = await params;
 
   const location = await query("SELECT * FROM locations WHERE slug = ?", [slug]);

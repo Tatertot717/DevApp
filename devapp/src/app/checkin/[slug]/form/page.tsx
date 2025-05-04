@@ -1,5 +1,3 @@
-'use client'
-
 import { query } from "@/lib/db";
 import Header from "@/components/header";
 import { redirect } from "next/navigation";

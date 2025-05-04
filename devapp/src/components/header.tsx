@@ -37,7 +37,7 @@ export default function LandingHeader({ loggedInItems, loggedOutItems }: HeaderP
                 <Link href="/auth/login">
                   <span className="hover:underline cursor-pointer">Log In</span>
                 </Link>
-                <Link href="/signup">
+                <Link href="/auth/login">
                   <span className="bg-white text-red-800 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition">Sign Up</span>
                 </Link>
               </>

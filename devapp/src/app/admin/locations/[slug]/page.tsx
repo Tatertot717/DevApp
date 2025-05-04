@@ -40,10 +40,10 @@ export default async function AdminLocationCheckinsPage({
         <LandingHeader />
         <div className="min-h-screen bg-white text-gray-900 p-10">
         <Link
-          href="/admin"
+          href="/admin/locations"
           className="text-red-600 hover:underline text-sm mb-4 inline-block"
         >
-          ← Back to Admin Dashboard
+          ← Back to Locations
         </Link>
           <main className="p-10 text-center">
             <h2 className="text-3xl font-bold">Location Not Found</h2>
@@ -71,10 +71,10 @@ export default async function AdminLocationCheckinsPage({
       <LandingHeader />
       <div className="min-h-screen bg-white text-gray-900 p-10">
         <Link
-          href="/admin"
+          href="/admin/locations"
           className="text-red-600 hover:underline text-sm mb-4 inline-block"
         >
-          ← Back to Admin Dashboard
+          ← Back to Locations
         </Link>
         <h1 className="text-4xl font-bold mb-8">
           Admin View: Check-Ins at{" "}
