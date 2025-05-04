@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useUser } from "@auth0/nextjs-auth0";
 import LandingHeader from "@/components/header";
 import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
@@ -19,7 +19,7 @@ export default function SecureScannerPage() {
   // Redirect to login if not authenticated
   useEffect(() => {
     if (!isLoading && !user) {
-      redirect("/auth/login");
+       window.location.href = "/auth/login";
     }
   }, [user, isLoading, router]);
 

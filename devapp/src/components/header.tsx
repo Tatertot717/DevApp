@@ -26,20 +26,20 @@ export default function LandingHeader({ loggedInItems, loggedOutItems }: HeaderP
                 <Link href="/dashboard">
                   <span className="hover:underline cursor-pointer">Dashboard</span>
                 </Link>
-                <Link href="/auth/logout">
+                <a href="/auth/logout">
                   <span className="bg-white text-red-800 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition">Log Out</span>
-                </Link>
+                </a>
               </>
             )
           ) : (
             loggedOutItems ?? (
               <>
-                <Link href="/auth/login">
+                <a href="/auth/login">
                   <span className="hover:underline cursor-pointer">Log In</span>
-                </Link>
-                <Link href="/auth/login">
+                </a>
+                <a href="/auth/login">
                   <span className="bg-white text-red-800 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition">Sign Up</span>
-                </Link>
+                </a>
               </>
             )
           )}
