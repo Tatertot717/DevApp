@@ -13,9 +13,13 @@ export default async function DashboardPage() {
   if (!session || !user) {
     window.location.href = "/auth/login"; // Or show a login prompt
   } else {
+    await query(
+      `INSERT INTO users (auth0_sub, name, email)
+       VALUES (?, ?, ?)
+       ON DUPLICATE KEY UPDATE name = VALUES(name), email = VALUES(email)`,
+      [session.user.sub, session.user.name, session.user.email]
+    );
 
-  await query(`INSERT IGNORE INTO users (auth0_sub) VALUES (?)`, [session.user.sub]);
-
-  redirect("/scanner"); // Logged in → redirect to callback
+    redirect("/scanner"); // Logged in → redirect to callback
   }
 }

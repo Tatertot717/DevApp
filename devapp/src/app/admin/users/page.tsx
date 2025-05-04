@@ -7,7 +7,7 @@ export default async function UsersPage() {
   await requireAdmin();
 
   const users = await query(
-    "SELECT id, auth0_sub, is_admin FROM users ORDER BY id DESC"
+    "SELECT id, auth0_sub, name, email, is_admin FROM users ORDER BY id DESC"
   );
 
   return (
@@ -29,9 +29,12 @@ export default async function UsersPage() {
             {users.map((user: any) => (
               <li key={user.id} className="border p-4 rounded shadow-sm">
                 <div className="font-semibold">
-                  {user.auth0_sub} ({user.id})
+                  {user.name || "No name"} ({user.email || "No email"})<br />
+                  <span className="text-xs text-gray-400">
+                    {user.auth0_sub} — ID: {user.id}
+                  </span>
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500 mt-1">
                   {user.is_admin ? (
                     "Admin"
                   ) : (

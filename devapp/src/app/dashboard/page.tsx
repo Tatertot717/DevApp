@@ -60,9 +60,9 @@ export default async function LowAuthDashboardPage() {
          <Link href="/scanner">
            <span className="hover:underline cursor-pointer">Scanner</span>
          </Link>
-         <Link href="/auth/logout">
+         <a href="/auth/logout">
            <span className="bg-white text-red-800 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition">Log Out</span>
-         </Link>
+         </a>
        </>
       }></LandingHeader>
       <div className="min-h-screen bg-white text-gray-900 p-10">

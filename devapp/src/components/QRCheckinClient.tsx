@@ -28,7 +28,7 @@ export default function QRCheckinClient({
     return () => clearInterval(interval);
   }, [slug, realtimeAuth]);
 
-  const baseUrl = process.env.APP_BASE_URL || "http://localhost:3001";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
   const path = realtimeAuth ? "scanner" : `checkin/${slug}/form`;
   const qrUrl = `${baseUrl}/${path}?slug=${slug}&token=${token}`;
 
