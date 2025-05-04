@@ -34,7 +34,7 @@ export default async function CheckinPage({ params }: { params: Params }) {
         <p className="mb-8 text-lg text-center max-w-xl">
           Scan to check in!
         </p>
-        <QRCheckinClient slug={slug} realtimeAuth={!!realtime_auth} />
+        <QRCheckinClient slug={slug} realtimeAuth={realtime_auth} />
         </div>
     </>
   );

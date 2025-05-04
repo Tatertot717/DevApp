@@ -1,6 +1,7 @@
 import { auth0 } from "@/lib/auth0";
 import { query } from "@/lib/db";
 import { redirect } from "next/navigation";
+import LandingHeader from "@/components/header";
 
 export default async function AdminDashboardPage() {
   const session = await auth0.getSession();
@@ -22,6 +23,8 @@ export default async function AdminDashboardPage() {
   );
 
   return (
+    <> 
+    <LandingHeader/>
     <main className="max-w-4xl mx-auto py-12 px-6">
       <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 
@@ -43,5 +46,6 @@ export default async function AdminDashboardPage() {
         </ul>
       )}
     </main>
+    </>
   );
 }

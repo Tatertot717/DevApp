@@ -17,7 +17,7 @@ app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
-  }).listen(3001, "0.0.0.0",() => {
-    console.log("HTTPS dev server ready at 3001, make sure to use https://");
+  }).listen(3000, "0.0.0.0",() => {
+    console.log("HTTPS dev server ready at 3000, make sure to use https://");
   });
 });
