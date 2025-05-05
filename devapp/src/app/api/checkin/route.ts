@@ -1,6 +1,7 @@
 import { isTokenValid } from "@/lib/token";
 import { query } from "@/lib/db";
 import { auth0 } from '@/lib/auth0';
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { slug, token, name: providedName } = await req.json();
@@ -12,19 +13,19 @@ export async function POST(req: Request) {
   );
 
   if (!locationRes || locationRes.length === 0) {
-    return Response.json({ message: "Invalid location." }, { status: 404 });
+    return NextResponse.json({ message: "Invalid location." }, { status: 404 });
   }
 
   const { id: locationId, realtime_auth } = locationRes[0];
   const interval = realtime_auth ? 10 : 15;
 
   if (!isTokenValid(slug, token, interval)) {
-    return Response.json({ message: "Invalid or expired token." }, { status: 400 });
+    return NextResponse.json({ message: "Invalid or expired token." }, { status: 400 });
   }
 
   if (realtime_auth) {
     if (!session || !session.user) {
-      return Response.json({ message: "Unauthorized." }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     }
   }
 
@@ -32,7 +33,7 @@ export async function POST(req: Request) {
   const sub = realtime_auth ? session?.user?.sub : null;
 
   if (!name) {
-    return Response.json({ message: "Name is required for check-in." }, { status: 400 });
+    return NextResponse.json({ message: "Name is required for check-in." }, { status: 400 });
   }
 
   const ip = req.headers.get("x-forwarded-for") || req.headers.get("host");
@@ -43,5 +44,5 @@ export async function POST(req: Request) {
     [sub, name, locationId, ip]
   );
 
-  return Response.json({ message: "Check-in successful!" });
+  return NextResponse.json({ message: "Check-in successful!" });
 }

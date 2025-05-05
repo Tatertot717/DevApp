@@ -1,7 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
     preset: 'ts-jest',
-    testEnvironment: 'jsdom',      // ← use built-in jsdom
+    testEnvironment: 'node',      // ← use built-in jsdom
     testMatch: [
       '<rootDir>/src/**/*.test.ts',
       '<rootDir>/src/**/*.spec.ts'
