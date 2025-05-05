@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 
 export default function QRCheckinClient({
@@ -12,12 +12,12 @@ export default function QRCheckinClient({
 }) {
   const [token, setToken] = useState("");
 
-  const fetchToken = async () => {
+  const fetchToken = useCallback(async () => {
     const interval = realtimeAuth ? 10 : 15;
     const res = await fetch(`/api/gen-token?slug=${slug}&interval=${interval}`);
     const data = await res.json();
     setToken(data.token);
-  };
+  }, [realtimeAuth, slug]);
 
   useEffect(() => {
     fetchToken();
@@ -26,7 +26,7 @@ export default function QRCheckinClient({
     const interval = setInterval(fetchToken, refreshInterval);
 
     return () => clearInterval(interval);
-  }, [slug, realtimeAuth]);
+  }, [slug, realtimeAuth, fetchToken]);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
   const path = realtimeAuth ? "scanner" : `checkin/${slug}/form`;

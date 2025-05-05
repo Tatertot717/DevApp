@@ -12,7 +12,7 @@ export default async function LowAuthDashboardPage() {
     redirect("/");
   }
 
-  const { name, sub } = session.user;
+  const { sub } = session.user;
 
   // Do NOT use users table — this is for low-auth users only
   const userRes = await query("SELECT * FROM users WHERE auth0_sub = ?", [sub]);

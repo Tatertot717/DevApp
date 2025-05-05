@@ -22,7 +22,7 @@ export default function QRScanner({ onScan }: { onScan: (text: string) => void }
 
         setCameras(foundCameras);
         setCameraId(foundCameras[foundCameras.length - 1].id);
-      } catch (err) {
+      } catch {
         setError("Camera permission denied or unavailable.");
       }
     }

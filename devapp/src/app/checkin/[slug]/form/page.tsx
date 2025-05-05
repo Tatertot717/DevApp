@@ -28,7 +28,7 @@ export default async function CheckinFormPage({
     );
   }
 
-  const { name, realtime_auth } = result[0];
+  const { realtime_auth } = result[0];
 
   if (realtime_auth) {
     redirect(`/scanner`);

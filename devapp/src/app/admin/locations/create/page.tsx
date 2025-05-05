@@ -69,7 +69,7 @@ export default function CreateLocationPage() {
               className="w-full p-2 border rounded"
             />
             <p className="text-sm text-gray-500">
-              e.g. "my-location". Must be unique.
+              e.g. &quot;my-location&ldquo;. Must be unique.
             </p>
           </div>
 

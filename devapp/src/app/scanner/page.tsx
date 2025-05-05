@@ -7,6 +7,7 @@ import LandingHeader from "@/components/header";
 import { AnimatedQRLogo } from "@/components/animated-qr-code-logo";
 import QRScanner from "@/components/QRScanner";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function SecureScannerPage() {
   const [message, setMessage] = useState("");
@@ -51,7 +52,7 @@ export default function SecureScannerPage() {
       } else {
         window.location.href = scanned;
       }
-    } catch (err) {
+    } catch {
       setMessage("Could not process QR code.");
     }
   };
@@ -82,7 +83,7 @@ export default function SecureScannerPage() {
         )}
 
         <Button className="bg-red-700 hover:bg-red-800 text-white mt-6" asChild>
-          <a href="/">Back to Home</a>
+          <Link href="/">Back to Home</Link>
         </Button>
       </main>
     </div>
