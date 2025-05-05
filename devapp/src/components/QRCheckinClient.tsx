@@ -13,7 +13,7 @@ export default function QRCheckinClient({
   const [token, setToken] = useState("");
 
   const fetchToken = async () => {
-    const interval = realtimeAuth ? 5 : 15;
+    const interval = realtimeAuth ? 10 : 15;
     const res = await fetch(`/api/gen-token?slug=${slug}&interval=${interval}`);
     const data = await res.json();
     setToken(data.token);
@@ -22,7 +22,7 @@ export default function QRCheckinClient({
   useEffect(() => {
     fetchToken();
 
-    const refreshInterval = realtimeAuth ? 5000 : 15000;
+    const refreshInterval = realtimeAuth ? 10000 : 15000;
     const interval = setInterval(fetchToken, refreshInterval);
 
     return () => clearInterval(interval);

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   }
 
   const { id: locationId, realtime_auth } = locationRes[0];
-  const interval = realtime_auth ? 5 : 15;
+  const interval = realtime_auth ? 10 : 15;
 
   if (!isTokenValid(slug, token, interval)) {
     return Response.json({ message: "Invalid or expired token." }, { status: 400 });

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 export default function SecureScannerPage() {
   const [message, setMessage] = useState("");
   const lastScannedTimeRef = useRef<number>(0);
-  const cooldownMs = 3000;
+  const cooldownMs = 500;
 
   const { user, isLoading } = useUser();
   const router = useRouter();
