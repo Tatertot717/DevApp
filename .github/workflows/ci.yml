@@ -1,0 +1,32 @@
+name: CI / Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out the repo
+      - uses: actions/checkout@v4
+
+      # 2. Set up Node.js (choose a version compatible with Next.js 15)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Run the build
+      - name: Build
+        run: npm run build
+
+      # 5. (Optional) Lint
+      - name: Lint
+        run: npm run lint
