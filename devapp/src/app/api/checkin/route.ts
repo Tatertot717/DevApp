@@ -3,14 +3,8 @@ import { query } from "@/lib/db";
 import { auth0 } from '@/lib/auth0';
 
 export async function POST(req: Request) {
-  const { slug, token } = await req.json();
+  const { slug, token, name: providedName } = await req.json();
   const session = await auth0.getSession();
-
-  if (!session || !session.user) {
-    return Response.json({ message: "Unauthorized." }, { status: 401 });
-  }
-
-  const { name, sub } = session.user;
 
   const locationRes = await query(
     "SELECT id, realtime_auth FROM locations WHERE slug = ?",
@@ -26,6 +20,19 @@ export async function POST(req: Request) {
 
   if (!isTokenValid(slug, token, interval)) {
     return Response.json({ message: "Invalid or expired token." }, { status: 400 });
+  }
+
+  if (realtime_auth) {
+    if (!session || !session.user) {
+      return Response.json({ message: "Unauthorized." }, { status: 401 });
+    }
+  }
+
+  const name = realtime_auth ? session?.user?.name : providedName;
+  const sub = realtime_auth ? session?.user?.sub : null;
+
+  if (!name) {
+    return Response.json({ message: "Name is required for check-in." }, { status: 400 });
   }
 
   const ip = req.headers.get("x-forwarded-for") || req.headers.get("host");
