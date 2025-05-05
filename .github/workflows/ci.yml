@@ -18,8 +18,11 @@ jobs:
           node-version: 18
           cache: 'npm'
           cache-dependency-path: devapp/package-lock.json
-
       - name: Install dependencies
+        working-directory: devapp
+        run: npm install
+
+      - name: Setup dependencies
         working-directory: devapp
         run: npm ci
 
