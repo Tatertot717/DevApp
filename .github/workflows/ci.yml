@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18
           cache: 'npm'
 
       # 3. Install dependencies in the devapp folder
@@ -25,12 +25,10 @@ jobs:
         working-directory: devapp
         run: npm ci
 
-      # 4. Build from devapp
       - name: Build
         working-directory: devapp
         run: npm run build
 
-      # 5. (Optional) Lint in devapp
       - name: Lint
         working-directory: devapp
         run: npm run lint
